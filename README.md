@@ -20,7 +20,7 @@ yarn add vue
 接下来，我们分步来实现前面提到的几点功能。
 ### 1. js 文件打包并添加进 html 中
 首先我们要使用 webpack 提供的功能将代码中的 js 文件及其依赖打包并添加 hash 值，然后将文件路径写进 html 中。我们在项目的根目录建立 webpack.config.js，设置环境(mode)为 development，设置入口(entry)为 src 中的 main.js，设置输出(output)为 dist 文件夹中的 output.js 文件：
-
+~~~ js
 const path = require('path')
 module.exports = {
   mode: 'development',
@@ -30,8 +30,9 @@ module.exports = {
     path: path.resolve(__dirname, './dist')
   }
 }
+~~~
 编辑 package.json 文件，添加 scripts 属性："scripts": { "build": "webpack" }，由于 webpack 可自行找到位于根目录下的webpack.config.js，故这里不需要添加参数。如果你需要把 webpack.config.js 放到其他文件夹中（例如 build ）则需要添加: webpack --config build/webpack.config.js。目前的 package.json 文件如下：
-
+~~~ json
 {
   "name": "vue-cli",
   "version": "1.0.0",
@@ -43,9 +44,10 @@ module.exports = {
     "webpack-cli": "^3.3.11"
   }
 }
+~~~
 让我们现在运行 yarn run build 来看下，成功建立了 dist 文件夹，虽然在解析 App.vue 时报错
 我们此时暂将 src/main.js 中和引用 App.vue 相关的代码注释掉，只留下 import Vue from 'vue' 这一句。别担心，后续再通过使用vue-loader进行解决这个错误。
-
+~~~ vue
 import Vue from 'vue'
 /*
 import App from './App.vue'
@@ -54,12 +56,12 @@ new Vue({
   render: h => h(App),
 }).$mount('#app')
 */
-
+~~~
 
 然后我们为生成的 js 文件添加 hash 值来保证每次修改 js 文件不会被浏览器缓存影响调试。得益于webpack 的智能这一步非常简单，直接更改 output 的 filename，由output.js 变为[name].[hash:8].js 即可完成。运行 yarn run build 之后发现 dist 文件夹中已经生成了main.****.js文件，其中包含了main.js还有它依赖的全部js文件。
 ### 2. 打包时引用自定义模版
 接下来我们使用public文件夹中的html模板来构造dist的html文件：这时候我们需要用到webpack的html-webpack-plugin插件。首先安装插件：yarn add html-webpack-plugin --dev，然后在webpack.config.js中添加相应的plugin:
-
+~~~ js
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
@@ -71,7 +73,7 @@ module.exports = {
   },
   plugins:[ new HtmlWebpackPlugin() ]
 }
-
+~~~
 
 执行 yarn run build 之后我们发现 dist 文件夹中出现了index.html, 在index.html 内部加载了main.****.js 文件。这和我们所期望的一致！当然我们可以使用 public 文件夹中的 index.html 模板来构造这个 dist 中的html 文件：
 
