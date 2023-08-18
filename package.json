@@ -1,0 +1,39 @@
+{
+  "name": "my-vue-cli",
+  "version": "1.0.0",
+  "description": "从0到1完成自己的vue-cli",
+  "main": "main.js",
+  "author": "YuanJie",
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack-dev-server --open",
+    "build": "webpack"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.10",
+    "@babel/preset-env": "^7.22.10",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^9.1.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "core-js": "^3.32.0",
+    "css-loader": "^6.8.1",
+    "eslint": "^8.47.0",
+    "eslint-loader": "^4.0.2",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.3",
+    "style-loader": "^3.3.3",
+    "url-loader": "^4.1.1",
+    "vue-loader": "^17.2.2",
+    "vue-template-compiler": "^2.7.14",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {
+    "vue": "^3.3.4"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}
